@@ -48,7 +48,15 @@ Running:
     python dotstack.py --recursive --detailed mystack > mystack.dot
 
 Produces dot output like [this](sample-detailed.dot) and results in a
-graph like [this](sample-detailed.png).
+graph like [this](sample-detailed.png).  You will need to process the
+dot output with the `dot` tool from [graphviz][]:
+
+[graphviz]: http://www.graphviz.org/
+
+    dot -Tsvg -o mystack.svg mystack.dot
+
+You can generate output in a variety of other formats if `svg` just
+isn't your bag, baby.
 
 ## License
 
