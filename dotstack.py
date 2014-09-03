@@ -24,11 +24,39 @@ import logging
 import os
 import sys
 
+from itertools import cycle
+
 from keystoneclient.v2_0.client import Client as KEYSTONE
 from heatclient.client import Client as HEAT
 from heatclient.exc import *
 
 LOG = logging.getLogger('dotstack')
+
+# From http://eleanormaclure.files.wordpress.com/2011/03/colour-coding.pdf
+KELLY_HIGH_CONTRAST_COLORS = cycle((
+#    '#FFFFFF',  # White
+#    '#000000',  # Black
+    '#FFB300',  # Vivid Yellow
+    '#803E75',  # Strong Purple
+    '#FF6800',  # Vivid Orange
+    '#A6BDD7',  # Very Light Blue
+    '#C10020',  # Vivid Red
+    '#CEA262',  # Grayish Yellow
+    '#817066',  # Medium Gray
+    '#007D34',  # Vivid Green
+    '#F6768E',  # Strong Purplish Pink
+    '#00538A',  # Strong Blue
+    '#FF7A5C',  # Strong Yellowish Pink
+    '#53377A',  # Strong Violet
+    '#FF8E00',  # Vivid Orange Yellow
+    '#B32851',  # Strong Purplish Red
+    '#F4C800',  # Vivid Greenish Yellow
+    '#7F180D',  # Strong Reddish Brown
+    '#93AA00',  # Vivid Yellowish Green
+    '#593315',  # Deep Yellowish Brown
+    '#F13A13',  # Vivid Reddish Orange
+    '#232C16',  # Dark Olive Green
+))
 
 
 def get_keystone_client(args):
@@ -103,6 +131,12 @@ def parse_args():
     outg.add_argument('--detailed', '-D',
                       action='store_true',
                       help='produce detailed nodes in graph')
+    outg.add_argument('--kelly', '-K',
+                      action='store_const',
+                      const='kelly',
+                      dest='palette',
+                      help="Use Kenneth Kelly's high "
+                      "contrast color palette")
 
     p.add_argument('--recursive', '-r',
                    action='store_true',
@@ -110,7 +144,7 @@ def parse_args():
     p.add_argument('stack',
                    help='name or id of heat stack')
 
-    p.set_defaults(loglevel=logging.WARN)
+    p.set_defaults(loglevel=logging.WARN, palette='auto')
     return p.parse_args()
 
 
@@ -149,8 +183,11 @@ def main():
 
     # Find the named stack.
     try:
+        # See if we have an ID first
         stack = heat.stacks.get(args.stack)
     except HTTPNotFound:
+        # Could not get stack by ID so look for a stack with
+        # a matching name.
         for stack in heat.stacks.list():
             if stack.stack_name == args.stack:
                 break
@@ -165,15 +202,24 @@ def main():
     get_stack_data(heat, stack, nodelist, nodemap, edges,
                    recurse=args.recursive)
 
-    # This builds a color palette for coloring the graph nodes by
+    # Build a color palette for coloring the graph nodes by
     # resource type.
     rsrc_types = set([node.resource_type for node in nodemap.values()])
-    HSV_tuples = [(x*1.0/len(rsrc_types), 0.3, 1.0)
-                  for x in range(len(rsrc_types))]
-    RGB_tuples = map(lambda x: colorsys.hsv_to_rgb(*x), HSV_tuples)
-    rsrc_colors = dict(zip(rsrc_types, RGB_tuples))
 
-    print 'digraph heat_stack_%s {' % stack.stack_name
+    if args.palette == 'kelly':
+        LOG.info('using kelly color palette')
+        rsrc_colors = dict(zip(rsrc_types, KELLY_HIGH_CONTRAST_COLORS))
+    else:
+        LOG.info('using automatically generated color palette')
+        HSV_tuples = [(x*1.0/len(rsrc_types), 0.3, 1.0)
+                      for x in range(len(rsrc_types))]
+        RGB_tuples = ('#%02X%02X%02X' % (int(255*r), int(255*g), int(255*b))
+                      for r, g, b in (colorsys.hsv_to_rgb(*x)
+                                      for x in HSV_tuples))
+        rsrc_colors = dict(zip(rsrc_types, RGB_tuples))
+
+    LOG.info('generating output')
+    print 'digraph heat_stack_%s {' % stack.stack_name.replace('-', '_')
     print 'rankdir=LR'
 
     # First output all the nodes and appropriate formatting options.
@@ -181,8 +227,8 @@ def main():
         rsrc = nodemap[node[0]]
         rsrc_type = rsrc.resource_type
         rsrc_id = rsrc.physical_resource_id
-        rsrc_color = '#%02X%02X%02X' % tuple(int(255*x)
-                                             for x in rsrc_colors[rsrc_type])
+        rsrc_color = rsrc_colors[rsrc_type]
+
         if args.detailed:
             print '"%s" [label="%s | %s | %s", shape="record"]' % (
                 node[0], node[1], rsrc_type, rsrc_id)
