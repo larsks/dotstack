@@ -41,14 +41,14 @@ Running:
     python dotstack.py --recursive --color mystack > mystack.dot
 
 Produces dot output like [this](sample.dot) and results in a graph
-like [this](sample.svg).
+like [this](sample.png).
 
 Running:
 
     python dotstack.py --recursive --detailed mystack > mystack.dot
 
 Produces dot output like [this](sample-detailed.dot) and results in a
-graph like [this](sample-detailed.svg).
+graph like [this](sample-detailed.png).
 
 ## License
 
