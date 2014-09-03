@@ -1,0 +1,60 @@
+digraph heat_stack_test0 {
+rankdir=LR
+"72acf222-df25-42ca-beca-6897b508829e:wordpress_server" [label="wordpress_server | OS::Nova::Server | 5c04d49e-3f7a-4cab-a6f6-b47147e95206", shape="record"]
+"72acf222-df25-42ca-beca-6897b508829e:wordpress_server_eth0" [label="wordpress_server_eth0 | OS::Neutron::Port | d5e69f4d-a3ba-4388-9a16-8daaa8a077f7", shape="record"]
+"72acf222-df25-42ca-beca-6897b508829e:wordpress_server_floating" [label="wordpress_server_floating | OS::Neutron::FloatingIP | 6b0516b6-5425-4677-a277-35d137d41cd8", shape="record"]
+"72acf222-df25-42ca-beca-6897b508829e:wordpress_wait_condition" [label="wordpress_wait_condition | AWS::CloudFormation::WaitCondition | wordpress_wait_handle", shape="record"]
+"72acf222-df25-42ca-beca-6897b508829e:wordpress_wait_handle" [label="wordpress_wait_handle | AWS::CloudFormation::WaitConditionHandle | 67124c720c7c484699f34ca2ce93cbfa", shape="record"]
+"72acf222-df25-42ca-beca-6897b508829e:wp_auth_key" [label="wp_auth_key | OS::Heat::RandomString | bAdxTHwsmARQMGfG1gAKRrbM4BKvhVXx", shape="record"]
+"ac165393-1716-4816-b805-88a20fbbc08e:h4tkpz3guxzg" [label="h4tkpz3guxzg | file:///home/lars/projects/rdo-hangout-heat-intro/wordpress-server.yaml | 72acf222-df25-42ca-beca-6897b508829e", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:cpu_alarm_high" [label="cpu_alarm_high | OS::Ceilometer::Alarm | be16dcc6-4a54-442e-ac58-71cf01eec996", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:cpu_alarm_low" [label="cpu_alarm_low | OS::Ceilometer::Alarm | 796bf5e8-9e3b-4af7-bac7-2edf1b04b0c2", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:db_password" [label="db_password | OS::Heat::RandomString | rgzMnSccpVNR2sS8wBGlcvT4bUYhhK6F", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:extrouter" [label="extrouter | OS::Neutron::Router | 4cd685c1-525a-402a-b00d-6e821f9147d1", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:extrouter_inside" [label="extrouter_inside | OS::Neutron::RouterInterface | 4cd685c1-525a-402a-b00d-6e821f9147d1:subnet_id=fdc8aaff-1dee-46e9-a9ab-7650020ff171", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:fixed_network" [label="fixed_network | OS::Neutron::Net | faed55ae-ab76-43ba-9339-54643d75dc65", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:fixed_subnet" [label="fixed_subnet | OS::Neutron::Subnet | fdc8aaff-1dee-46e9-a9ab-7650020ff171", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server" [label="mysql_server | OS::Nova::Server | ef063f67-37f1-4ae6-ab09-755df1b66954", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_eth0" [label="mysql_server_eth0 | OS::Neutron::Port | ee327218-6fa4-4d8d-b758-75f16ac200d5", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_floating" [label="mysql_server_floating | OS::Neutron::FloatingIP | aac46c62-e566-4146-9bb4-71df2fe50ef7", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_wait_condition" [label="mysql_wait_condition | AWS::CloudFormation::WaitCondition | mysql_wait_handle", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_wait_handle" [label="mysql_wait_handle | AWS::CloudFormation::WaitConditionHandle | bc285e8e148b445caa5c379a19943916", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:secgroup_common" [label="secgroup_common | OS::Neutron::SecurityGroup | b53f86e1-2448-4e1c-bf29-b41c31df7c69", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:secgroup_db" [label="secgroup_db | OS::Neutron::SecurityGroup | 53257332-f6bb-42bb-af3e-03c74998b19a", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:secgroup_webserver" [label="secgroup_webserver | OS::Neutron::SecurityGroup | 9a69d971-dd07-4cd4-9402-7561108b28c7", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:web_server_scaledown_policy" [label="web_server_scaledown_policy | OS::Heat::ScalingPolicy | 2f4246294a7f4e8883f67fd16159a9ff", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:web_server_scaleup_policy" [label="web_server_scaleup_policy | OS::Heat::ScalingPolicy | 6c1a4a04df24431aaf4570e49c68ce56", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group" [label="wordpress_group | OS::Heat::AutoScalingGroup | ac165393-1716-4816-b805-88a20fbbc08e", shape="record"]
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:extrouter_inside" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_floating"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:extrouter_inside" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:web_server_scaledown_policy"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:web_server_scaleup_policy"
+"72acf222-df25-42ca-beca-6897b508829e:wordpress_server" -> "72acf222-df25-42ca-beca-6897b508829e:wordpress_wait_condition"
+"72acf222-df25-42ca-beca-6897b508829e:wordpress_server_eth0" -> "72acf222-df25-42ca-beca-6897b508829e:wordpress_server"
+"72acf222-df25-42ca-beca-6897b508829e:wordpress_server_eth0" -> "72acf222-df25-42ca-beca-6897b508829e:wordpress_server_floating"
+"72acf222-df25-42ca-beca-6897b508829e:wp_auth_key" -> "72acf222-df25-42ca-beca-6897b508829e:wordpress_server"
+"72acf222-df25-42ca-beca-6897b508829e:wordpress_wait_handle" -> "72acf222-df25-42ca-beca-6897b508829e:wordpress_server"
+"72acf222-df25-42ca-beca-6897b508829e:wordpress_wait_handle" -> "72acf222-df25-42ca-beca-6897b508829e:wordpress_wait_condition"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:db_password" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:db_password" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:extrouter" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:extrouter_inside"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:secgroup_webserver" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_wait_handle" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_wait_condition"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_wait_handle" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:secgroup_db" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_eth0"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:fixed_network" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:fixed_subnet"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:fixed_network" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:fixed_network" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_eth0"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:web_server_scaleup_policy" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:cpu_alarm_high"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_wait_condition"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_wait_condition" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:secgroup_common" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:secgroup_common" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_eth0"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_eth0" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_floating"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_eth0" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_eth0" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:fixed_subnet" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:mysql_server_eth0"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:fixed_subnet" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:extrouter_inside"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:fixed_subnet" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:wordpress_group"
+"e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:web_server_scaledown_policy" -> "e8568b05-f1ab-43f5-bf0b-6e0ef0c92ab6:cpu_alarm_low"
+}
